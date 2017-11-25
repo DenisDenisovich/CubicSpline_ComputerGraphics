@@ -292,7 +292,6 @@ void MainWindow::setP3(){
     dots[2][0] = ui->p3x->text().toDouble(&p3xBool);
     dots[2][1] = ui->p3y->text().toDouble(&p3yBool);
     if(p3xBool && p3yBool){
-        //line.setP3(dots[2]);
         lineBool[2] = true;
     }else{
         lineBool[2] = false;
@@ -313,7 +312,6 @@ void MainWindow::setP5(){
     dots[4][0] = ui->p5x->text().toDouble(&p5xBool);
     dots[4][1] = ui->p5y->text().toDouble(&p5yBool);
     if(p5xBool && p5yBool){
-        //line.setP5(dots[4]);
         lineBool[4] = true;
     }else{
         lineBool[4] = false;

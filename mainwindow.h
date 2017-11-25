@@ -4,10 +4,6 @@
 #include <QMainWindow>
 #include <line.h>
 #include <QList>
-/*struct dot{
-    double x;
-    double y;
-};*/
 
 namespace Ui {
 class MainWindow;
@@ -31,8 +27,6 @@ private:
     static const int MIN_N = 6;
     static const int MAX_N = 10;
     int n = MIN_N;
-    //double dot[2];
-    //QList<dot> dotList;
     double **dots; // first index - number of dot. second index (0 - x, 1 - y)
     double **graph;
     double **turnDots;

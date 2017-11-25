@@ -11,17 +11,17 @@ Line::Line()
 
 double** Line::init(int n, double* _p[2]){
     this->n = n;
-    qDebug() << "p";
+    //qDebug() << "p";
     p = new double*[n];
     for(int i = 0; i < n; i++){
         p[i] = new double[2];
         p[i][0] = _p[i][0];
         p[i][1] = _p[i][1];
-        qDebug() << p[i][0] << p[i][1];
+        //qDebug() << p[i][0] << p[i][1];
     }
 
     // расчет tk (находим хорды между двумя точками)
-    qDebug() << "tk";
+    //qDebug() << "tk";
     double _x;
     double _y;
     double chord;
@@ -32,11 +32,11 @@ double** Line::init(int n, double* _p[2]){
         chord = _x+_y;
         chord = pow(chord,0.5);
         t[i] = chord;
-        qDebug() << t[i];
+        //qDebug() << t[i];
     }
 
     // формируем матрицу M
-    qDebug() << "M";
+    //qDebug() << "M";
     M = new double*[n];
     for(int i = 0; i < n; i++){
         M[i] = new double[n];
@@ -62,14 +62,13 @@ double** Line::init(int n, double* _p[2]){
         }
         indent++;
     }
-    for(int i = 0; i < n; i++){
+    /*for(int i = 0; i < n; i++){
             qDebug() << M[i][0] << " " << M[i][1] << " " << M[i][2] << " "
                      << M[i][3]; //<< " " << M[i][4] << " " << M[i][5];
 
-    }
-    //qDebug() << "Здесь3";
+    }*/
     // формируем матрицу R
-    qDebug() << "R";
+    //qDebug() << "R";
     R = new double*[n];
     for(int i = 0; i < n; i++){
         R[i] = new double[2];
@@ -84,21 +83,20 @@ double** Line::init(int n, double* _p[2]){
     for(int i = 1; i < n-1; i++){
         firstCoeff  = (3*t[i-1])/ t[i];
         secondCoeef = (3*t[i])/(t[i-1]);
-        /*qDebug() << firstCoeff << " * (" << p[i+1][0] << " - " << p[i][0] << ")" << " + "
-                 << secondCoeef << " * (" << p[i][0]  << " - "  << p[i-1][0] << ")";*/
+
         R[i][0] = firstCoeff*(p[i+1][0] - p[i][0]) +
                   secondCoeef*(p[i][0] - p[i-1][0]);
 
         R[i][1] = firstCoeff*(p[i+1][1] - p[i][1]) +
                   secondCoeef*(p[i][1] - p[i-1][1]);
-        qDebug() << R[i][0] << " " << R[i][1];
+        //qDebug() << R[i][0] << " " << R[i][1];
     }
 
     // находим инвертированную матрицу М
     invM = calcInvertMatrix(n,M);
 
     // находим значения dP
-    qDebug() << "dP";
+    //qDebug() << "dP";
     dP = new double*[n];
     for(int i = 0; i < n; i++){
         dP[i] = new double[2];
@@ -110,13 +108,9 @@ double** Line::init(int n, double* _p[2]){
                 value += invM[i][j]*R[j][k];
             }
             dP[i][k] = value;
-            //dP[i][k] /= 10;
-            /*if(i != 0 && i < n-1){
-                dP[i][k] /= 10;
-            }*/
             value = 0;
         }
-        qDebug() << dP[i][0] << " " << dP[i][1];
+        //qDebug() << dP[i][0] << " " << dP[i][1];
     }
 
     return getDots();
@@ -157,12 +151,12 @@ double** Line::getDots(){
         G[2][1] = dP[k][1];
         G[3][0] = dP[k+1][0];
         G[3][1] = dP[k+1][1];
-        qDebug() << "tk" << tk;
-        qDebug() << "G" << k;
-        qDebug() << G[0][0] << " " << G[0][1];
-        qDebug() << G[1][0] << " " << G[1][1];
-        qDebug() << G[2][0] << " " << G[2][1];
-        qDebug() << G[3][0] << " " << G[3][1];
+        //qDebug() << "tk" << tk;
+        //qDebug() << "G" << k;
+        //qDebug() << G[0][0] << " " << G[0][1];
+        //qDebug() << G[1][0] << " " << G[1][1];
+        //qDebug() << G[2][0] << " " << G[2][1];
+        //qDebug() << G[3][0] << " " << G[3][1];
 
         for(int i = 0; i < 100; i++){
             tau = ((double)i)/100;
@@ -177,14 +171,14 @@ double** Line::getDots(){
                                  f3*G[2][0] + f4*G[3][0];
             dots[k*100 + i][1] = f1*G[0][1] + f2*G[1][1] +
                                  f3*G[2][1] + f4*G[3][1];
-            if(i == 33){
+            /*if(i == 33){
                 qDebug() << "F1 = " << f1 << "F2 = " << f2 << "F3 = " << f3 << "F4 = " << f4;
                 qDebug() << "i = 1/3" << dots[k*100 + i][0] << " " << dots[k*100 + i][1];
             }
             if(i == 66){
                 qDebug() << "F1 = " << f1 << "F2 = " << f2 << "F3 = " << f3 << "F4 = " << f4;
                 qDebug() << "i = 2/3" << dots[k*100 + i][0] << " " << dots[k*100 + i][1];
-            }
+            }*/
     }
     }
     return dots;

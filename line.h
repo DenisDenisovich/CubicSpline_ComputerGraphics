@@ -29,19 +29,6 @@ private:
 public:
     Line();
     double** init(int, double**);
-    /*void setP1(double*);
-    void setP2(double*);
-    void setP3(double*);
-    void setP4(double*);
-    void setP5(double*);
-    void setP6(double*);
-    double* getP1();
-    double* getP2();
-    double* getP3();
-    double* getP4();
-    double* getP5();
-    double* getP6();*/
-
     double** getDots();
     void createTurnMatrixX(double);
     void createTurnMatrixY(double);
